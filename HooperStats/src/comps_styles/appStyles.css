@@ -135,6 +135,7 @@ color: var(--azul-claro);}
 .start__session:hover{
     background-color: var(--azul-claro);
     color: black;
+    transition: 0.3s ease;
 }
 
 
@@ -149,6 +150,7 @@ color: var(--azul-claro);}
 .remove__session:hover{
     background-color: var(--orange);
     color: var(--azul-claro);
+    transition: 0.3s ease;
 }
 
 
@@ -245,4 +247,16 @@ color: var(--azul-claro);}
 .limpar-concluidas button:hover{
     background-color:transparent;
     color: var(--orange);
+    transition: 0.3s ease;
+}
+
+.input__session{
+    background-color: transparent;
+    border: 1px solid var(--azul-escuro);
+    color: var(--azul-escuro);
+    padding: 0.5em;
+    font-size: 16px;
+    border-radius: 3px;
+    margin-top: 10px;
+    width: 200px;
 }

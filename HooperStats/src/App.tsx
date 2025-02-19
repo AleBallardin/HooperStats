@@ -4,17 +4,36 @@ import CreateSession from './components/createSession';
 import Sessions from './components/sessions';
 import CreateGoal from './components/createGoal';
 import Goals from './components/goals';
+import { useEffect, useState } from 'react';
+
+
 
 function App(){
+  const [sessions, setSessions] = useState<string[]>([]);
+
+  useEffect(()=>{
+    const savedSessions = JSON.parse(localStorage.getItem("sessions") || "[]")
+    setSessions(savedSessions);
+  }, [])
+
+  function addSession(sessionName: string) {
+    const newSession = [...sessions, sessionName]
+    setSessions(newSession)
+    localStorage.setItem("sessions", JSON.stringify(newSession))
+  }
+
+  function removeSessions(index: number){
+    const newSession = sessions.filter((_, i) => i !== index)
+    setSessions(newSession)
+    localStorage.setItem("sessions", JSON.stringify(newSession))
+  }
+
   return (
     <>
       <TopMenu/>
-    
-      <CreateSession/>
+      <CreateSession addSession={addSession}/>
       <>
-        <Sessions/>
-        <Sessions/>
-        <Sessions/>
+        <Sessions sessions={sessions} removeSessions={removeSessions}/>
       </>
       <CreateGoal/>
       <>

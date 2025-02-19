@@ -1,4 +1,5 @@
 import '../comps_styles/appStyles.css'
+import { Session, Exercise } from './types';
 
 function CreateGoal(){
     return (

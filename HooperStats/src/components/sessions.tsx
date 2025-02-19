@@ -1,16 +1,24 @@
 import '../comps_styles/appStyles.css'
 
-function Sessions(){
+interface SessionProps{
+    sessions: string[];
+    removeSessions: (index:number) => void;
+}
+
+function Sessions({sessions, removeSessions}:SessionProps){
     return (
         <div className='div_sessions'>
             <ul className='sessions__container'>
-                <li className='session__item'>
-                    <p>Treino A</p>
+                {sessions.map((session, index) => (
+                    <li key={index} className='session__item'>
+                    <p>{session}</p>
                     <div className='session__buttons'>
                         <button className='start__session'>Iniciar</button>
-                        <button className='remove__session'><i className="fa-solid fa-trash-can"></i></button>
+                        <button className='remove__session' onClick={() => removeSessions(index)}><i className="fa-solid fa-trash-can"></i></button>
                     </div>
                 </li>
+                ))}
+                
             </ul>
         </div>
     )
