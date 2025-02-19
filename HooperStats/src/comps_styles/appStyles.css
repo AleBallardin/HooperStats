@@ -59,6 +59,13 @@ body{
     text-align: center;
 }
 
+.register__container h1{
+    font-family: var(--font-principal);
+    font-weight: 400;
+    color: var(--azul-escuro);
+    margin-bottom: 10px;
+}
+
 
 .register__btn{
     background-color: transparent;
@@ -101,6 +108,7 @@ body{
     background-color: var(--azul-medio);
     border-radius: 4px;
     width: 300px;
+    margin: 0.3em 0 0 0;
 }
 
 .session__item p{
@@ -141,4 +149,100 @@ color: var(--azul-claro);}
 .remove__session:hover{
     background-color: var(--orange);
     color: var(--azul-claro);
+}
+
+
+
+.goals__container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1em;
+    align-items: center;
+    text-align: center;
+}
+
+.goals__container h1{
+    font-family: var(--font-principal);
+    font-weight: 400;
+    color: var(--azul-escuro);
+    margin-bottom: 10px;
+}
+
+
+.goals__btn{
+    background-color: transparent;
+    border-radius: 4px;
+    border: 1px solid var(--azul-escuro);
+    color: #0A3981;
+    font-family: var(--font-principal);
+    font-weight: 400;
+    font-size: 16px;
+    width: 200px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+}
+
+.div__goals{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.list-goals__container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.goals__item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1em;
+    background-color: var(--azul-medio);
+    border-radius: 4px;
+    width: 300px;
+    margin: 0.3em 0 0 0;
+}
+
+.goals__item p{
+    font-family: var(--font-principal);
+    font-size: 20px;
+
+color: var(--azul-claro);}
+
+.goals__item:has(.goal__input:checked) {
+    background-color: #ccc;
+    color: #666;
+    opacity: 0.6;
+}
+
+.limpar-concluidas{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.limpar-concluidas button{
+    background-color: var(--orange);
+    border: 1px solid var(--orange);
+    color: var(--azul-claro);
+    padding: 1em;
+    margin-top: 10px;
+    border-radius: 4px;
+    width: 200px;
+}
+
+.limpar-concluidas button:hover{
+    background-color:transparent;
+    color: var(--orange);
 }
