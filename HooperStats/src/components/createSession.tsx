@@ -1,19 +1,26 @@
-import '../comps_styles/appStyles.css'
-import { useState } from 'react'
-import { Exercise } from './types';
+import '../comps_styles/appStyles.css';
+import { useState } from 'react';
+import { Exercise, Session } from './types';
+import { v4 as uuidv4 } from 'uuid';
 
 interface CreateSessionProps {
-    addSession: (sessionName: string, exercises: Exercise[], time: number) => void;
+    addSession: (session: Session) => void;
 }
 
-function CreateSession({ addSession }: CreateSessionProps){
-
+function CreateSession({ addSession }: CreateSessionProps) {
     const [sessionName, setSessionName] = useState<string>("");
 
     function criaTreino() {
         if (!sessionName.trim()) return;
-    
-        addSession(sessionName, [], 0);
+
+        const newSession: Session = {
+            id: uuidv4(), 
+            name: sessionName,
+            exercises: [], 
+            time: 0, 
+        };
+
+        addSession(newSession);
         setSessionName("");
     }
 
@@ -32,10 +39,10 @@ function CreateSession({ addSession }: CreateSessionProps){
                     <i className="fa-solid fa-plus"></i>
                 </button>
             </div>
-            
-
         </div>
-    )
+    );
 }
 
 export default CreateSession;
+
+

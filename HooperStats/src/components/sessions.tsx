@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 interface SessionProps{
     sessions: Session[];
-    removeSessions: (index:number) => void;
+    removeSessions: (id:string) => void;
 }
 
 function Sessions({sessions, removeSessions}:SessionProps){
@@ -12,8 +12,8 @@ function Sessions({sessions, removeSessions}:SessionProps){
 
   const navigate = useNavigate();
 
-  const showSingleSession = ()=>{
-        navigate('/singleSession')
+  const showSingleSession = (sessionId: string)=>{
+        navigate(`/singleSession/${sessionId}`)
   }
 
     return (
@@ -23,8 +23,8 @@ function Sessions({sessions, removeSessions}:SessionProps){
                     <li key={index} className='session__item'>
                     <p>{session.name}</p>
                     <div className='session__buttons'>
-                        <button className='start__session' onClick={showSingleSession}>Visualizar</button>
-                        <button className='remove__session' onClick={() => removeSessions(index)}><i className="fa-solid fa-trash-can"></i></button>
+                        <button className='start__session'  onClick={() => showSingleSession(session.id)}>Visualizar</button>
+                        <button className='remove__session' onClick={() => removeSessions(session.id)}><i className="fa-solid fa-trash-can"></i></button>
                     </div>
                 </li>
                 ))}

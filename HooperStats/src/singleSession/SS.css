@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    padding: 0;
+    margin: 0;
+    max-height: 100vh;
+    max-width: 100vw;
+    background-color: #D4EBF8;
+}
+
+:root{
+    --font-principal: "Kanit", serif;
+    --azul-escuro: #0A3981;
+    --azul-claro: #D4EBF8;
+    --azul-medio: #1F509A;
+    --orange: #E38E49;
+}
+
+.session_title{
+    font-family: var(--font-principal);
+    font-size: 44px;
+    text-align: center;
+
+}
+
+
+.form__exercise{
+    font-family: var(--font-principal);
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.form__exercise input{
+    padding: 0.4em 1.5em;
+    border-radius: 3px;
+    outline: none;
+    border: 1px solid;
+}
+
+.form__exercise button{
+    width: 220px;
+    height: 35px;
+    background-color: transparent;
+    border-radius: 3px;
+    border: 1px solid var(--orange);
+    color: var(--orange);
+    font-weight: 700;
+    font-family: var(--font-principal);
+}
+
+.form__exercise button:hover{
+    background-color: var(--orange);
+    color: var(--azul-claro);
+}
+
+.exercises__title{
+    font-family: var(--font-principal);
+    font-size: 44px;
+    text-align: center;
+}
+
+.exercises__list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    gap: 10px;
+    list-style-type: none;
+}
+
+.exercise{
+    font-family: var(--font-principal);
+    font-size: 16px;
+    border: 1px solid;
+    border-radius: 3px;
+    width: 350px;
+    padding: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+
+}
+
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    cursor: pointer;
+    gap: 10px;
+    user-select: none;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .custom-checkbox input {
+    display: none;
+  }
+  
+  .custom-checkbox .checkmark {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    border: 2px solid var(--orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .custom-checkbox input:checked + .checkmark {
+    background-color: var(--orange);
+    border-color: var(--orange);
+  }
+  
+  .custom-checkbox .checkmark::before {
+    content: "";
+    width: 10px;
+    height: 5px;
+    border-left: 2px solid white;
+    border-bottom: 2px solid white;
+    transform: rotate(-45deg);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .custom-checkbox input:checked + .checkmark::before {
+    opacity: 1;
+  }
+  

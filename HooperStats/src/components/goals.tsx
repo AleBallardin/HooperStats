@@ -1,6 +1,7 @@
 import '../comps_styles/appStyles.css';
 import Goal from './types';
 
+
 interface GoalsProps {
     goals: Goal[];
     removeGoal: (index: number) => void;
