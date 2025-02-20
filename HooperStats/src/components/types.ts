@@ -1,10 +1,16 @@
-export interface Exercicio {
-  nome: string;
-  repeticoes: number;
+export interface Goal {
+  name: string;
+  checked: boolean;
 }
 
-export interface Treino {
-  id: number;
-  nome: string;
-  exercicios: Exercicio[];
+export interface Exercise {
+  name: string;
+  reps: number;
+  percentage: number;
+}
+
+export interface Session {
+  name: string;
+  exercises: Exercise[];
+  time: number;
 }

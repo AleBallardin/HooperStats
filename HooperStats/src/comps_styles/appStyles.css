@@ -68,20 +68,17 @@ body{
 
 
 .register__btn{
-    background-color: transparent;
-    border-radius: 4px;
+    background-color: var(--azul-escuro);
+    border-radius: 0 4px 4px 0;
     border: 1px solid var(--azul-escuro);
-    color: #0A3981;
-    font-family: var(--font-principal);
-    font-weight: 400;
-    font-size: 16px;
-    width: 200px;
+    color: var(--azul-claro);
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    text-align: center;
     gap: 10px;
+    width: 50px;
+    height: 36px;
 }
 
 
@@ -173,20 +170,17 @@ color: var(--azul-claro);}
 
 
 .goals__btn{
-    background-color: transparent;
-    border-radius: 4px;
+    background-color: var(--azul-escuro);
+    border-radius: 0 4px 4px 0;
     border: 1px solid var(--azul-escuro);
-    color: #0A3981;
-    font-family: var(--font-principal);
-    font-weight: 400;
-    font-size: 16px;
-    width: 200px;
+    color: var(--azul-claro);
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    text-align: center;
     gap: 10px;
+    width: 50px;
+    height: 36px;
 }
 
 .div__goals{
@@ -222,6 +216,11 @@ color: var(--azul-claro);}
 
 color: var(--azul-claro);}
 
+.goal__input{
+    outline: none;
+    border: none;
+}
+
 .goals__item:has(.goal__input:checked) {
     background-color: #ccc;
     color: #666;
@@ -256,7 +255,28 @@ color: var(--azul-claro);}
     color: var(--azul-escuro);
     padding: 0.5em;
     font-size: 16px;
-    border-radius: 3px;
-    margin-top: 10px;
+    border-radius: 3px 0 0 3px;
+    margin-bottom: 10px;
     width: 200px;
+}
+
+
+.remove__goal{
+    background-color: transparent;
+    border: 1px solid var(--orange);
+    padding: 0.5em;
+    border-radius: 3px;
+    color: var(--orange);
+}
+
+.remove__goal:hover{
+    background-color: var(--orange);
+    color: var(--azul-claro);
+    transition: 0.3s ease;
+}
+
+
+.createDiv{
+    display: flex;
+    flex-direction: row;
 }
