@@ -89,8 +89,16 @@ function SingleSession() {
     }
 
     localStorage.setItem("sessions", JSON.stringify(savedSessions));
-    window.location.reload()
+
+    const html = document.querySelector(`.exercise__title[data-exercise-index="${exerciseIndex}"]`);
+
+    if (html) {
+        html.textContent = exercise.makes
+            ? `${exercise.name} - ${exercise.reps} Reps | ${exercise.makes} Acertos | ${exercise.percentage}%`
+            : `${exercise.name} - ${exercise.reps} Reps`;
+    }
 }
+
 
   
   
@@ -141,10 +149,10 @@ function SingleSession() {
         <ul className='exercises__list'>
         {session.exercises.map((exercise, index) => (
           <li className='exercise' key={index}>
-            <div className='exercise__title'>
-            {exercise.name} - {exercise.reps} repetições <br/>
-             {exercise.makes ? `${exercise.makes} Acertos | ${exercise.percentage}%` : ''}
+            <div className="exercise__title" data-exercise-index={index}>
+              {exercise.name} - {exercise.reps} Reps
             </div>
+
             <label className="custom-checkbox">
               <input 
               checked={exercise?.checked || false}
