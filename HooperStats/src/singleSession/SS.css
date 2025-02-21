@@ -24,6 +24,7 @@ body{
 }
 
 .session_text_title{
+    margin-top: 0.5em;
     font-family: var(--font-principal);
     font-size: 44px;
     text-align: center;
@@ -197,4 +198,80 @@ body{
     width: 250px;
     flex-wrap: wrap;
   }
+
+  .timer__container{
+    align-items: center;
+    text-align: center;
+    padding-bottom: 2em;
+    border-bottom: 1px solid var(--ciza-medio);
+  }
+
+
+  .timer{
+    align-items: center;
+    text-align: center;
+    color: var(--branco);
+    font-family: var(--font-principal);
+    font-size: 70px;
+  }
+
+  .iniciar__timer{
+    color: var(--branco);
+    padding: 1em 2em;
+    border-radius: 3px;
+    font-family: var(--font-principal);
+    font-size: 16px;
+    font-weight: 500;
+    border: 1px solid green;
+    background-color: transparent;
+    transition: 0.3s ease;
+  }
+
+  .parar__timer{
+    color: var(--branco);
+    padding: 1em 2em;
+    border-radius: 3px;
+    font-family: var(--font-principal);
+    font-size: 16px;
+    font-weight: 500;
+    border: 1px solid red;
+    background-color: transparent;
+    transition: 0.3s ease;
+  }
+
+  .limpar__timer{
+    color: var(--branco);
+    padding: 1em 2em;
+    border-radius: 3px;
+    font-family: var(--font-principal);
+    font-size: 16px;
+    font-weight: 500;
+    border: 1px solid yellow;
+    background-color: transparent;
+    transition: 0.3s ease;
+  }
+  .parar__timer:hover{
+    background-color: red;
+  }
+
+  .iniciar__timer:hover{
+    background-color: green;
+  }
+
+  .limpar__timer:hover{
+    background-color: yellow;
+  }
+
+  
+
+  .button__timer{
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  
   

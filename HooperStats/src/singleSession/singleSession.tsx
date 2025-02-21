@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Exercise, Session } from '../components/types';
 import TopMenu from '../components/topMenu';
 import './SS.css'
+import Timer from './SScomps/timer';
 
 function SingleSession() {
   const { sessionId } = useParams<{sessionId:string}>();
@@ -23,6 +24,7 @@ function SingleSession() {
       if (!session || !exerciseName.trim()) return;
 
       const newExercise: Exercise = {
+        checked: false,
         name: exerciseName,
         reps: Number(reps),
         makes: Number(makes),
@@ -67,6 +69,29 @@ function SingleSession() {
       setSession(foundSession);
     }
   }
+
+  function endExercise(sessionId: string, exerciseIndex: number) {
+    const savedSessions: Session[] = JSON.parse(localStorage.getItem("sessions") || "[]");
+    const sessionIndex = savedSessions.findIndex(session => session.id === sessionId);
+  
+    if (sessionIndex === -1) return;
+
+    const exercise = savedSessions[sessionIndex].exercises[exerciseIndex];
+
+    if (!exercise) return;
+
+    const makes = prompt(`De ${exercise.reps} tentativas, quantas você acertou?`);
+
+    if (makes !== null && !isNaN(Number(makes))) {
+        exercise.checked = true;
+        exercise.makes = Number(makes);
+        exercise.percentage = parseFloat(((exercise.makes / exercise.reps) * 100).toFixed(2));
+    }
+
+    localStorage.setItem("sessions", JSON.stringify(savedSessions));
+    window.location.reload()
+}
+
   
   
 
@@ -87,6 +112,7 @@ function SingleSession() {
   return (
     <div>
       <TopMenu />
+      <Timer/>
       <h1 className='session_text_title'>{session.name}</h1>
       <div className='toggle-form'>
         <h3>Adicionar Exercício</h3>
@@ -106,12 +132,6 @@ function SingleSession() {
           value={reps}
           onChange={(e) => setReps(Number(e.target.value))}
         />
-        <input
-          type="number"
-          placeholder="Acertos"
-          value={makes}
-          onChange={(e) => setMakes(Number(e.target.value))}
-        />
         <button onClick={addExercise}>Adicionar</button>
       </div>
       <br />
@@ -122,15 +142,19 @@ function SingleSession() {
         {session.exercises.map((exercise, index) => (
           <li className='exercise' key={index}>
             <div className='exercise__title'>
-            {exercise.name} - {exercise.reps} repetições
+            {exercise.name} - {exercise.reps} repetições <br/>
+             {exercise.makes ? `${exercise.makes} Acertos | ${exercise.percentage}%` : ''}
             </div>
             <label className="custom-checkbox">
               <input 
+              checked={exercise?.checked || false}
+              onChange={() => endExercise(session.id, index)}
+                className='checkbox__exer'
                 type="checkbox"
               />
               <span className="checkmark"></span>
               <button className='remove__exer' onClick={() => deleteExercise(session.id, index)}><i className="fa-solid fa-trash-can"></i></button>
-              <button className='edit__exer' >
+              <button className='edit__exer'>
                 <i className="fa-solid fa-pen-to-square" ></i>
               </button>
             </label>

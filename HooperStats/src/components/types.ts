@@ -4,6 +4,7 @@ export interface Goal {
 }
 
 export interface Exercise {
+  checked: boolean,
   name: string;
   reps: number;
   makes: number;
