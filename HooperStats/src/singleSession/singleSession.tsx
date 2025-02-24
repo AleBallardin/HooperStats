@@ -71,33 +71,53 @@ function SingleSession() {
   }
 
   function endExercise(sessionId: string, exerciseIndex: number) {
-    const savedSessions: Session[] = JSON.parse(localStorage.getItem("sessions") || "[]");
-    const sessionIndex = savedSessions.findIndex(session => session.id === sessionId);
-  
-    if (sessionIndex === -1) return;
+    setTimeout(() => {
+        if (!session) return;
+        
+        const updatedSession = { ...session };
+        const exercise = updatedSession.exercises[exerciseIndex];
 
-    const exercise = savedSessions[sessionIndex].exercises[exerciseIndex];
+        if (!exercise) return;
 
-    if (!exercise) return;
+        let makes: number | null = null;
+        
+        while (makes === null) {
+            const input = prompt(`De ${exercise.reps} tentativas, quantas você acertou?`);
 
-    const makes = prompt(`De ${exercise.reps} tentativas, quantas você acertou?`);
+            if (input === null) return;
 
-    if (makes !== null && !isNaN(Number(makes))) {
+            const parsed = Number(input);
+
+            if (!isNaN(parsed) && parsed >= 0 && parsed <= exercise.reps) {
+                makes = parsed;
+            } else {
+                alert("Por favor, insira um número válido entre 0 e " + exercise.reps);
+            }
+        }
+
         exercise.checked = true;
-        exercise.makes = Number(makes);
-        exercise.percentage = parseFloat(((exercise.makes / exercise.reps) * 100).toFixed(2));
-    }
+        exercise.makes = makes;
+        exercise.percentage = parseFloat(((makes / exercise.reps) * 100).toFixed(2));
 
-    localStorage.setItem("sessions", JSON.stringify(savedSessions));
+        const savedSessions: Session[] = JSON.parse(localStorage.getItem("sessions") || "[]");
+        const updatedSessions = savedSessions.map((s) =>
+            s.id === sessionId ? updatedSession : s
+        );
 
-    const html = document.querySelector(`.exercise__title[data-exercise-index="${exerciseIndex}"]`);
+        localStorage.setItem("sessions", JSON.stringify(updatedSessions));
 
-    if (html) {
-        html.textContent = exercise.makes
-            ? `${exercise.name} - ${exercise.reps} Reps | ${exercise.makes} Acertos | ${exercise.percentage}%`
-            : `${exercise.name} - ${exercise.reps} Reps`;
-    }
+        const html = document.querySelector(`.exercise__title[data-exercise-index="${exerciseIndex}"]`);
+
+        if (html) {
+            html.textContent = `${exercise.name} - ${exercise.reps} Reps | ${exercise.makes} Acertos | ${exercise.percentage}%`;
+        }
+
+        setSession(updatedSession);
+    }, 10);
 }
+
+
+
 
 
   
@@ -154,13 +174,15 @@ function SingleSession() {
             </div>
 
             <label className="custom-checkbox">
-              <input 
-              checked={exercise?.checked || false}
-              onChange={() => endExercise(session.id, index)}
+            <input 
+                checked={exercise.checked}
+                style={{ color: exercise.checked ? 'orange' : 'var(--branco)' }} // Removi o ponto-e-vírgula
+                onChange={() => endExercise(session.id, index)}
                 className='checkbox__exer'
                 type="checkbox"
-              />
-              <span className="checkmark"></span>
+            />
+
+              <i className="fas fa-basketball-ball bball-check"></i>
               <button className='remove__exer' onClick={() => deleteExercise(session.id, index)}><i className="fa-solid fa-trash-can"></i></button>
               <button className='edit__exer'>
                 <i className="fa-solid fa-pen-to-square" ></i>

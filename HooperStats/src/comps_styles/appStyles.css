@@ -11,6 +11,8 @@ body{
     max-height: 100vh;
     max-width: 100vw;
     background-color: var(--preto);
+    font-size: 20px;
+    line-height: 30px
 }
 
 :root{
@@ -45,7 +47,8 @@ body{
 
 .logo__menu p{
     font-family: var(--font-principal);
-    font-size: 15px;
+    font-size: 16px;
+    line-height: 24px;
     color: var(--branco);
 }
 
@@ -83,7 +86,9 @@ body{
     justify-content: center;
     gap: 10px;
     width: 50px;
-    height: 36px;
+    height: 42px;
+    font-size: 16px;
+    line-height: 24px;
 }
 
 
@@ -116,6 +121,7 @@ body{
 .session__item p{
     font-family: var(--font-principal);
     font-size: 20px;
+    line-height: 30px;
 
 color: var(--branco);}
 
@@ -184,7 +190,9 @@ color: var(--branco);}
     justify-content: center;
     gap: 10px;
     width: 50px;
-    height: 36px;
+    height: 42px;
+    font-size: 16px;
+    line-height: 24px;
 
 }
 
@@ -218,6 +226,7 @@ color: var(--branco);}
 .goals__item p{
     font-family: var(--font-principal);
     font-size: 20px;
+    line-height: 30px;
     color: var(--branco);}
 
 .goal__input{
@@ -262,6 +271,7 @@ color: var(--branco);}
     outline: none;
     padding: 0.5em;
     font-size: 16px;
+    line-height: 24px;
     border-radius: 3px 0 0 3px;
     margin-bottom: 10px;
     width: 200px;
