@@ -227,17 +227,37 @@ color: var(--branco);}
     font-family: var(--font-principal);
     font-size: 20px;
     line-height: 30px;
-    color: var(--branco);}
+    color: var(--branco);
+}
 
-.goal__input{
-    outline: none;
-    border: none;
+.goals__item p{
+    font-family: var(--font-principal);
+    font-size: 20px;
+    line-height: 30px;
+    color: var(--branco);}
+    
+.session__buttons .goal__input {
+    display: block;
+}
+    
+    
+.session__buttons .checkball {
+    font-size: 20px; 
+    line-height: 30px;
+    color: white; 
+    transition: color 0.3s; 
+    }
+    
+.session__buttons .goal__input:checked ~ .checkball {
+    color: orange;
+    will-change: color;
+    
 }
 
 .goals__item:has(.goal__input:checked) {
     background-color: #ccc;
     color: #666;
-    opacity: 0.6;
+    opacity: 1;
 }
 
 .limpar-concluidas{

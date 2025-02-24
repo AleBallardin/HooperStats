@@ -22,6 +22,7 @@ function Goals({ goals, removeGoal, toggleGoal }: GoalsProps) {
                                 checked={goal.checked}
                                 onChange={() => toggleGoal(index)} 
                             />
+                            <i className='fa fa-basketball checkball'></i>
                             <button className='remove__goal' onClick={() => removeGoal(index)}>
                                 <i className="fa-solid fa-trash-can"></i>
                             </button>
