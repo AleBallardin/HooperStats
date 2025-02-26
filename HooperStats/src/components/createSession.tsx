@@ -26,7 +26,7 @@ function CreateSession({ addSession }: CreateSessionProps) {
 
     return (
         <div className='register__container'>
-            <h1>Sessões</h1>
+            <h1 className='sessions__title'>Sessões</h1>
             <div className='createDiv'>
                 <input 
                     className='input__session'

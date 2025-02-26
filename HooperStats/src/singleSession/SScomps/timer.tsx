@@ -30,11 +30,13 @@ function Timer() {
 
     return (
         <div className='timer__container'>
+            {/* <div className="bolinha"></div> */}
             <h1 className='timer'>{formatTime(time)}</h1>
             <div className='button__timer'>
-                <button className='iniciar__timer' onClick={() => setIsRunning(true)}>iniciar</button>
-                <button className='parar__timer' onClick={() => setIsRunning(false)}>Parar</button>
-                <button className='limpar__timer' onClick={()=> setTime(0)}>Reiniciar</button>
+                <button className='iniciar__timer' onClick={() => setIsRunning(true)}><i className="fa-solid fa-play"></i></button>
+                <button className='parar__timer' onClick={() => setIsRunning(false)}><i className="fa-solid fa-pause"></i></button>
+                <button className='limpar__timer' onClick={()=> setTime(0)}><i className="fa-solid fa-rotate-right"></i></button>
+
             </div>
         </div>
     )

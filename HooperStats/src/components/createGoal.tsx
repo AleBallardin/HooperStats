@@ -19,7 +19,7 @@ function CreateGoal({addGoal}:createGoalProps){
 
     return (
         <div className='goals__container'>
-            <h1>Metas</h1>
+            <h1 className='metas__title'>Metas</h1>
             <div className='createDiv'>
                 <input 
                     className='input__session'

@@ -5,6 +5,7 @@ import { Exercise, Session } from '../components/types';
 import TopMenu from '../components/topMenu';
 import './SS.css'
 import Timer from './SScomps/timer';
+import Swal from 'sweetalert2'
 
 function SingleSession() {
   const { sessionId } = useParams<{sessionId:string}>();
@@ -70,51 +71,57 @@ function SingleSession() {
     }
   }
 
-  function endExercise(sessionId: string, exerciseIndex: number) {
-    setTimeout(() => {
-        if (!session) return;
-        
-        const updatedSession = { ...session };
-        const exercise = updatedSession.exercises[exerciseIndex];
+  async function endExercise(sessionId: string, exerciseIndex: number) {
+    if (!session) return;
+    
+    const updatedSession = { ...session };
+    const exercise = updatedSession.exercises[exerciseIndex];
 
-        if (!exercise) return;
+    if (!exercise) return;
 
-        let makes: number | null = null;
-        
-        while (makes === null) {
-            const input = prompt(`De ${exercise.reps} tentativas, quantas você acertou?`);
+    const { value: makes } = await Swal.fire({
+        title: `De ${exercise.reps}, quantas você acertou?`,
+        icon: "question",
+        input: "range",
+        inputLabel: "Acertos",
+        inputAttributes: {
+            min: "0",
+            max: exercise.reps,
+            step: "1"
+        },
+        inputValue: 0,
+        showCancelButton: true
+    });
 
-            if (input === null) return;
+    if (makes === undefined) return;
 
-            const parsed = Number(input);
+    const parsedMakes = Number(makes);
 
-            if (!isNaN(parsed) && parsed >= 0 && parsed <= exercise.reps) {
-                makes = parsed;
-            } else {
-                alert("Por favor, insira um número válido entre 0 e " + exercise.reps);
-            }
-        }
+    if (isNaN(parsedMakes) || parsedMakes < 0 || parsedMakes > exercise.reps) {
+        Swal.fire("Erro!", "Por favor, insira um número válido.", "error");
+        return;
+    }
 
-        exercise.checked = true;
-        exercise.makes = makes;
-        exercise.percentage = parseFloat(((makes / exercise.reps) * 100).toFixed(2));
+    exercise.checked = true;
+    exercise.makes = parsedMakes;
+    exercise.percentage = parseFloat(((parsedMakes / exercise.reps) * 100).toFixed(2));
 
-        const savedSessions: Session[] = JSON.parse(localStorage.getItem("sessions") || "[]");
-        const updatedSessions = savedSessions.map((s) =>
-            s.id === sessionId ? updatedSession : s
-        );
+    const savedSessions: Session[] = JSON.parse(localStorage.getItem("sessions") || "[]");
+    const updatedSessions = savedSessions.map((s) =>
+        s.id === sessionId ? updatedSession : s
+    );
 
-        localStorage.setItem("sessions", JSON.stringify(updatedSessions));
+    localStorage.setItem("sessions", JSON.stringify(updatedSessions));
 
-        const html = document.querySelector(`.exercise__title[data-exercise-index="${exerciseIndex}"]`);
+    const html = document.querySelector(`.exercise__title[data-exercise-index="${exerciseIndex}"]`);
 
-        if (html) {
-            html.textContent = `${exercise.name} - ${exercise.reps} Reps | ${exercise.makes} Acertos | ${exercise.percentage}%`;
-        }
+    if (html) {
+        html.textContent = `${exercise.name} - ${exercise.reps} Reps | ${exercise.makes} Acertos | ${exercise.percentage}%`;
+    }
 
-        setSession(updatedSession);
-    }, 10);
+    setSession(updatedSession);
 }
+
 
 
 
@@ -193,6 +200,7 @@ function SingleSession() {
       </ul>
       ) : ''}
       
+      <br />
       
     </div>
   )

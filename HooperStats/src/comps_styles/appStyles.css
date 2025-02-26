@@ -8,11 +8,13 @@
 body{
     padding: 0;
     margin: 0;
-    max-height: 100vh;
+    max-height: 100%;
+    height: auto;
     max-width: 100vw;
     background-color: var(--preto);
     font-size: 20px;
-    line-height: 30px
+    line-height: 30px;
+
 }
 
 :root{
@@ -35,7 +37,9 @@ body{
     align-items: center;
     text-align: center;
     background-color: var(--cinza-escuro);
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 100;
 }
 
 .top-menu .logo__menu{
@@ -316,4 +320,60 @@ color: var(--branco);}
 .createDiv{
     display: flex;
     flex-direction: row;
+}
+
+.metas__title, .sessions__title{
+    letter-spacing: -1%;
+}
+
+.side-menu{
+    width: 120px;
+    height: 100%;
+    background-color: var(--cinza-escuro);
+    position: absolute;
+    display: none;
+    right: 0;
+    z-index: 10;
+}
+
+.toggleSMenu{
+    display: block;
+}
+
+.side-menu__items{
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1em 0;
+    gap: 30px;
+}
+
+.side-menu__items li{
+    font-family: var(--font-principal);
+    color: var(--cinza-claro);
+    transition: 0.3s;
+}
+
+.side-menu__items li a{
+    font-family: var(--font-principal);
+    color: var(--cinza-claro);
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.side-menu__items li:hover{
+    transform: translate(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.get-prime a{
+    color: rgb(179, 182, 38) !important;
+    
 }

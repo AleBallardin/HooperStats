@@ -33,6 +33,7 @@ body{
     line-height: 66px;
     text-align: center;
     color: var(--branco);
+    letter-spacing: -1%;
 
 }
 
@@ -110,6 +111,7 @@ body{
     line-height: 66px;
     text-align: center;
     color: var(--branco);
+    letter-spacing: -1%;
 }
 
 .exercises__list{
@@ -186,74 +188,89 @@ body{
     flex-wrap: wrap;
   }
 
-  .timer__container{
+  .timer__container {
+    margin: auto;
+    margin-top: 1em;
     align-items: center;
     text-align: center;
     padding-bottom: 2em;
-    border-bottom: 1px solid var(--ciza-medio);
-  }
-
-
-  .timer{
+    border: 1px solid var(--branco); 
+    border-radius: 50%; 
+    width: 320px; 
+    height: 280px;
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    text-align: center;
+    position: relative;
+}
+
+/* tentativa de bolinha que anda */
+/* 
+.bolinha {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -140px); 
+    animation: moveAroundCircle 60s linear infinite;
+}
+
+@keyframes moveAroundCircle {
+    0% { transform: translate(-50%, -140px) rotate(0deg) translate(140px) rotate(0deg); }
+    100% { transform: translate(-50%, -140px) rotate(360deg) translate(140px) rotate(-360deg); }
+} */
+  
+  
+  .timer {
     color: var(--branco);
     font-family: var(--font-principal);
     font-size: 70px;
     line-height: 105px;
+    font-weight: 400;
   }
 
   .iniciar__timer{
     color: var(--branco);
-    padding: 1em 2em;
+    padding: 1em 1.2em;
     border-radius: 3px;
     font-family: var(--font-principal);
     font-size: 16px;
     line-height: 24px;
     font-weight: 500;
-    border: 1px solid green;
+    border: 1px solid var(--cinza-claro);
     background-color: transparent;
     transition: 0.3s ease;
   }
 
   .parar__timer{
     color: var(--branco);
-    padding: 1em 2em;
+    padding: 1em 1.2em;
     border-radius: 3px;
     font-family: var(--font-principal);
     font-size: 16px;
     line-height: 24px;
     font-weight: 500;
-    border: 1px solid red;
+    border: 1px solid var(--cinza-claro);
     background-color: transparent;
     transition: 0.3s ease;
   }
 
   .limpar__timer{
     color: var(--branco);
-    padding: 1em 2em;
+    padding: 1em;
     border-radius: 3px;
     font-family: var(--font-principal);
     font-size: 16px;
     line-height: 24px;
     font-weight: 500;
-    border: 1px solid yellow;
+    border: 1px solid var(--cinza-claro);
     background-color: transparent;
     transition: 0.3s ease;
   }
-  .parar__timer:hover{
-    background-color: red;
-  }
-
-  .iniciar__timer:hover{
-    background-color: green;
-  }
-
-  .limpar__timer:hover{
-    background-color: yellow;
-  }
-
-  
 
   .button__timer{
     align-items: center;
@@ -263,6 +280,8 @@ body{
     flex-direction: row;
     gap: 10px;
   }
+  
+  
 
   
   
