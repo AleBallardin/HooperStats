@@ -123,6 +123,14 @@ function SingleSession() {
 }
 
 
+  function endSession(){
+    const paraTimer = document.querySelector('.parar__timer') as HTMLButtonElement
+    paraTimer.click()
+
+    
+  }
+
+
 
 
 
@@ -183,7 +191,7 @@ function SingleSession() {
             <label className="custom-checkbox">
             <input 
                 checked={exercise.checked}
-                style={{ color: exercise.checked ? 'orange' : 'var(--branco)' }} // Removi o ponto-e-vírgula
+                style={{ color: exercise.checked ? 'orange' : 'var(--branco)' }} 
                 onChange={() => endExercise(session.id, index)}
                 className='checkbox__exer'
                 type="checkbox"
@@ -197,6 +205,7 @@ function SingleSession() {
             </label>
           </li>
         ))}
+        <button className='end-session' onClick={()=>{endSession()}}>Finalizar Sessão</button>
       </ul>
       ) : ''}
       

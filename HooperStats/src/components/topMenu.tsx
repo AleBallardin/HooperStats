@@ -1,5 +1,6 @@
 import '../comps_styles/appStyles.css'
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 
 
 function TopMenu(){
@@ -27,6 +28,12 @@ function TopMenu(){
         }
     },[sideMenu])
 
+    // const navigate = useNavigate();
+
+    // const showProfile = ()=>{
+    //     navigate(`/profile`)
+    // }
+
     return (
         <>
             <div className="top-menu">
@@ -42,13 +49,13 @@ function TopMenu(){
             <div className={`side-menu ${sideMenu ? "toggleSMenu" : ""}`}>
                 <ul className="side-menu__items">
                     <li>
-                        <a href="">
+                        <a href="/"> 
                             Home
                             <i className="fa-solid fa-house"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="/profile" >
                             Perfil
                             <i className="fa-solid fa-user"></i>
                         </a>

@@ -280,6 +280,21 @@ body{
     flex-direction: row;
     gap: 10px;
   }
+
+  .end-session{
+    margin: auto;
+    margin-top: 1em;
+    align-items: center;
+    text-align: center;
+    padding: 1em 2em;
+    border: none;
+    border-radius: 4px;
+    background-color: transparent;
+    border: 1px solid orange;
+    color: var(--branco);
+    font-size: 16px;
+    font-weight: 700;
+  }
   
   
 
