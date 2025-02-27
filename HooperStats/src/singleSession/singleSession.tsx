@@ -122,21 +122,28 @@ function SingleSession() {
     setSession(updatedSession);
 }
 
-
-  function endSession(){
+  function endSession(sessionId: string, exercises: Exercise[]){
     const paraTimer = document.querySelector('.parar__timer') as HTMLButtonElement
     paraTimer.click()
 
+    const savedSessions: Session[] = JSON.parse(localStorage.getItem("savedSessions") || "[]");
+
+    const newSession: Session = {
+        id: sessionId,
+        date: new Date().toISOString(),
+        exercises: exercises,
+    };
     
+    savedSessions.push(newSession);
+    localStorage.setItem("savedSessions", JSON.stringify(savedSessions));
+
+    console.log("New session saved in 'savedSessions':", newSession);
+
+
+
   }
 
 
-
-
-
-
-  
-  
 
   if (!session) return <p>Sessão não encontrada</p>
 
@@ -205,7 +212,7 @@ function SingleSession() {
             </label>
           </li>
         ))}
-        <button className='end-session' onClick={()=>{endSession()}}>Finalizar Sessão</button>
+        <button className='end-session' onClick={()=>{endSession(session.id, session.exercises)}}>Finalizar Sessão</button>
       </ul>
       ) : ''}
       

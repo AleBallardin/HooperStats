@@ -1,6 +1,6 @@
 import '../comps_styles/appStyles.css'
 import { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+
 
 
 function TopMenu(){
@@ -27,12 +27,6 @@ function TopMenu(){
             document.removeEventListener('click', handleOutClick)
         }
     },[sideMenu])
-
-    // const navigate = useNavigate();
-
-    // const showProfile = ()=>{
-    //     navigate(`/profile`)
-    // }
 
     return (
         <>
