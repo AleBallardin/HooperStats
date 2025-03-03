@@ -21,7 +21,7 @@ function SingleSessionContent() {
   const [exerciseName, setExerciseName] = useState<string>("");
   const [reps, setReps] = useState<string>("");
   const [makes, setMakes] = useState<string>("");
-  const { time, stopTimer } = useTimer(); // Agora dentro do TimerProvider
+  const { time, stopTimer } = useTimer(); 
 
   useEffect(() => {
     const savedSessions = JSON.parse(localStorage.getItem("sessions") || "[]");

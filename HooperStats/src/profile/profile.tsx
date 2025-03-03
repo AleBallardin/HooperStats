@@ -61,6 +61,7 @@ function Profile() {
                     </div>
                 </div>
             </div>
+            <p className='obs'>OBS: estes gráficos ainda estão em desenvolvimento</p>
             <Dashboard></Dashboard>
         </div>
         </>

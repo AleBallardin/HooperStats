@@ -18,8 +18,8 @@ function Dashboard() {
 
       const optionsPie = {
         title: "Reps por Exercício",
-        is3D: true,
-        backgroundColor: "transparent", 
+        backgroundColor: "#262626",
+        borderRadius: 6, 
         colors: ["#262626", "#8C8C8C", "#BFBFBF", "#f9f9f9"],
         titleTextStyle: {
           color: "#f9f9f9", 
@@ -50,7 +50,8 @@ function Dashboard() {
 
       const optionsBar = {
         title: "Melhores Treinos (%)",
-        backgroundColor: "transparent",
+        backgroundColor: "#262626",
+        borderRadius: 6,
         hAxis: { textStyle: { color: "#f9f9f9" } }, 
         vAxis: { textStyle: { color: "#f9f9f9" } }, 
         titleTextStyle: { color: "#f9f9f9", fontSize: 18 },
@@ -92,8 +93,26 @@ function Dashboard() {
 
   return (
     <div className="user_activity">
-      <div id="piechart" style={{ width: "100%", height: "300px", marginLeft: '30px' }}></div>
-      <div id="barchart" style={{width: "100%", height: "300px",  marginLeft: '30px'}}></div>
+      <div style={{ 
+          width: "80%", 
+          height: "300px", 
+          marginBottom: "20px", 
+          marginTop: "20px", 
+          borderRadius: "10px", 
+          overflow: "hidden" 
+      }}>
+          <div id="piechart" style={{ width: "100%", height: "100%" }}></div>
+      </div>
+
+      <div style={{ 
+          width: "80%", 
+          height: "300px", 
+          marginBottom: "20px",  
+          borderRadius: "10px", 
+          overflow: "hidden" 
+      }}>
+          <div id="barchart" style={{ width: "100%", height: "100%" }}></div>
+      </div>
     </div>
   );
 }
