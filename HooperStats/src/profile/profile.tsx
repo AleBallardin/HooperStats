@@ -1,6 +1,7 @@
 import './profile.css'
 import TopMenu from '../components/topMenu';
 import { useEffect, useState } from 'react';
+import Dashboard from './porfile_comps/dashboard';
 
 function Profile() {
     return (
@@ -14,9 +15,7 @@ function Profile() {
                 <h1 className='username'>Username</h1>
                 <i className="fa-solid fa-user-pen"></i>
             </div>
-            <div className='user_activity'>
-                <p>Desculpe, sessão ainda em desenvolvimento</p>
-            </div>
+            <Dashboard></Dashboard>
         </div>
         </>
         

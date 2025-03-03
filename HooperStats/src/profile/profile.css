@@ -60,8 +60,17 @@ body{
     color: var(--cinza-claro);
 }
 
+
+/* 
+dashboard */
+
 .user_activity{
     margin: auto;
-    color: var(--cinza-claro);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
 }
+
+
