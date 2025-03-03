@@ -1,105 +1,101 @@
-
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { Exercise, Session } from '../components/types';
-import TopMenu from '../components/topMenu';
-import './SS.css'
-import Timer from './SScomps/timer';
-import Swal from 'sweetalert2'
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Exercise, Session } from "../components/types";
+import TopMenu from "../components/topMenu";
+import "./SS.css";
+import Timer from "./SScomps/timer";
+import Swal from "sweetalert2";
+import { TimerProvider, useTimer } from "./SScomps/timerContexts";
 
 function SingleSession() {
-  const { sessionId } = useParams<{sessionId:string}>();
+  return (
+    <TimerProvider>
+      <SingleSessionContent />
+    </TimerProvider>
+  );
+}
+
+function SingleSessionContent() {
+  const { sessionId } = useParams<{ sessionId: string }>();
   const [session, setSession] = useState<Session | null>(null);
   const [exerciseName, setExerciseName] = useState<string>("");
-  const [reps, setReps] = useState<string>("")
-  const [makes, setMakes] = useState<string>("")
+  const [reps, setReps] = useState<string>("");
+  const [makes, setMakes] = useState<string>("");
+  const { time, stopTimer } = useTimer(); // Agora dentro do TimerProvider
 
-
-  useEffect(()=>{
+  useEffect(() => {
     const savedSessions = JSON.parse(localStorage.getItem("sessions") || "[]");
-    const foundSession = savedSessions.find((s:Session) => s.id === sessionId)
+    const foundSession = savedSessions.find((s: Session) => s.id === sessionId);
     setSession(foundSession || null);
-  }, [sessionId])
+  }, [sessionId]);
 
-  function addExercise(){
-      if (!session || !exerciseName.trim()) return;
+  function addExercise() {
+    if (!session || !exerciseName.trim()) return;
 
-      const newExercise: Exercise = {
-        checked: false,
-        name: exerciseName,
-        reps: Number(reps),
-        makes: Number(makes),
-        percentage: reps && makes ? Math.round((Number(makes) / Number(reps)) * 100) : 0
-      }
+    const newExercise: Exercise = {
+      checked: false,
+      name: exerciseName,
+      reps: Number(reps),
+      makes: Number(makes),
+      percentage: reps && makes ? Math.round((Number(makes) / Number(reps)) * 100) : 0,
+    };
 
-      const updateSession: Session = {
-        ...session,
-        exercises: [...session.exercises, newExercise]
-      }
+    const updatedSession: Session = {
+      ...session,
+      exercises: [...session.exercises, newExercise],
+    };
 
-      const savedSessions: Session[] = JSON.parse(localStorage.getItem("sessions") || "[]");
-      const updatedSessions = savedSessions.map((s) =>
-        s.id === sessionId ? updateSession : s
-      );
+    const savedSessions: Session[] = JSON.parse(localStorage.getItem("sessions") || "[]");
+    const updatedSessions = savedSessions.map((s) => (s.id === sessionId ? updatedSession : s));
 
-      localStorage.setItem("sessions", JSON.stringify(updatedSessions));
-      setSession(updateSession);
+    localStorage.setItem("sessions", JSON.stringify(updatedSessions));
+    setSession(updatedSession);
 
-      setExerciseName("");
-      setReps("");
-      setMakes("")
-
-
+    setExerciseName("");
+    setReps("");
+    setMakes("");
   }
 
   function deleteExercise(sessionId: string, exerciseIndex: number) {
-    const savedSessions: Session[] = JSON.parse(localStorage.getItem("sessions") || "[]");
+    if (!session) return;
+    const updatedExercises = session.exercises.filter((_, index) => index !== exerciseIndex);
+    const updatedSession = { ...session, exercises: updatedExercises };
 
-    const updatedSessions = savedSessions.map((session) => {
-      if (session.id === sessionId) {
-        return {
-          ...session,
-          exercises: session.exercises.filter((_, index) => index !== exerciseIndex),
-        };
-      }
-      return session;
-    });
+    const savedSessions: Session[] = JSON.parse(localStorage.getItem("sessions") || "[]");
+    const updatedSessions = savedSessions.map((s) => (s.id === sessionId ? updatedSession : s));
+
     localStorage.setItem("sessions", JSON.stringify(updatedSessions));
-    const foundSession = updatedSessions.find((s) => s.id === sessionId);
-    if (foundSession) {
-      setSession(foundSession);
-    }
+    setSession(updatedSession);
   }
 
   async function endExercise(sessionId: string, exerciseIndex: number) {
     if (!session) return;
-    
+
     const updatedSession = { ...session };
     const exercise = updatedSession.exercises[exerciseIndex];
 
     if (!exercise) return;
 
     const { value: makes } = await Swal.fire({
-        title: `De ${exercise.reps}, quantas você acertou?`,
-        icon: "question",
-        input: "range",
-        inputLabel: "Acertos",
-        inputAttributes: {
-            min: "0",
-            max: exercise.reps,
-            step: "1"
-        },
-        inputValue: 0,
-        showCancelButton: true
+      title: `De ${exercise.reps}, quantas você acertou?`,
+      icon: "question",
+      input: "range",
+      inputLabel: "Acertos",
+      inputAttributes: {
+        min: "0",
+        max: exercise.reps.toString(),
+        step: "1",
+      },
+      inputValue: 0,
+      showCancelButton: true,
     });
 
     if (makes === undefined) return;
 
     const parsedMakes = Number(makes);
-
     if (isNaN(parsedMakes) || parsedMakes < 0 || parsedMakes > exercise.reps) {
-        Swal.fire("Erro!", "Por favor, insira um número válido.", "error");
-        return;
+      Swal.fire("Erro!", "Por favor, insira um número válido.", "error");
+      return;
     }
 
     exercise.checked = true;
@@ -107,45 +103,53 @@ function SingleSession() {
     exercise.percentage = parseFloat(((parsedMakes / exercise.reps) * 100).toFixed(2));
 
     const savedSessions: Session[] = JSON.parse(localStorage.getItem("sessions") || "[]");
-    const updatedSessions = savedSessions.map((s) =>
-        s.id === sessionId ? updatedSession : s
-    );
+    const updatedSessions = savedSessions.map((s) => (s.id === sessionId ? updatedSession : s));
 
     localStorage.setItem("sessions", JSON.stringify(updatedSessions));
 
-    const html = document.querySelector(`.exercise__title[data-exercise-index="${exerciseIndex}"]`);
-
-    if (html) {
-        html.textContent = `${exercise.name} - ${exercise.reps} Reps | ${exercise.makes} Acertos | ${exercise.percentage}%`;
-    }
-
     setSession(updatedSession);
-}
-
-  function endSession(sessionId: string, exercises: Exercise[]){
-    const paraTimer = document.querySelector('.parar__timer') as HTMLButtonElement
-    paraTimer.click()
-
-    const savedSessions: Session[] = JSON.parse(localStorage.getItem("savedSessions") || "[]");
-
-    const newSession: Session = {
-        id: sessionId,
-        date: new Date().toISOString(),
-        exercises: exercises,
-    };
-    
-    savedSessions.push(newSession);
-    localStorage.setItem("savedSessions", JSON.stringify(savedSessions));
-
-    console.log("New session saved in 'savedSessions':", newSession);
-
-
-
   }
 
-
-
-  if (!session) return <p>Sessão não encontrada</p>
+  function endSession() {
+    if (!session) return;
+  
+    stopTimer();
+  
+    const paraTimer = document.querySelector('.parar__timer') as HTMLButtonElement;
+    if (paraTimer) {
+      paraTimer.click();
+    } else {
+      console.warn("Botão de parar timer não encontrado.");
+    }
+  
+    const doneSessions: Session[] = JSON.parse(localStorage.getItem("doneSessions") || "[]");
+  
+    const newSession: Session = {
+      id: session.id,
+      name: session.name,
+      exercises: session.exercises.map((exercise) => ({
+        ...exercise,
+        checked: true, 
+      })),
+      duration: time,
+    };
+  
+    doneSessions.push(newSession);
+    localStorage.setItem("doneSessions", JSON.stringify(doneSessions));
+  
+    const resetSession = {
+      ...session,
+      exercises: session.exercises.map((exercise) => ({
+        ...exercise,
+        checked: false,
+      })),
+    };
+  
+    setSession(resetSession);
+  
+    console.log("Sessão finalizada e salva em 'doneSessions':", newSession);
+  }
+  
 
   function toggleForm() {
     const form = document.querySelector(".form__exercise");
@@ -157,19 +161,20 @@ function SingleSession() {
     icon.classList.toggle("fa-angle-down");
     icon.classList.toggle("fa-angle-up");
   }
-  
+
+  if (!session) return <p>Sessão não encontrada</p>;
 
   return (
     <div>
       <TopMenu />
-      <Timer/>
-      <h1 className='session_text_title'>{session.name}</h1>
-      <div className='toggle-form'>
+      <Timer />
+      <h1 className="session_text_title">{session.name}</h1>
+      <div className="toggle-form">
         <h3>Adicionar Exercício</h3>
         <i className="fa-solid fa-angle-down toggleFormBtn" onClick={toggleForm}></i>
       </div>
       <br />
-      <div className='form__exercise'>
+      <div className="form__exercise">
         <input
           type="text"
           placeholder="Nome do exercício"
@@ -180,50 +185,47 @@ function SingleSession() {
           type="number"
           placeholder="Repetições"
           value={reps}
-          onChange={(e) => setReps(Number(e.target.value))}
+          onChange={(e) => setReps(e.target.value)}
         />
         <button onClick={addExercise}>Adicionar</button>
       </div>
       <br />
-      <br />
-      <h2 className='exercises__title'>Exercícios:</h2>
-      {session.exercises && session.exercises.length > 0 ? (
-        <ul className='exercises__list'>
-        {session.exercises.map((exercise, index) => (
-          <li className='exercise' key={index}>
-            <div className="exercise__title" data-exercise-index={index}>
-              {exercise.name} - {exercise.reps} Reps
-            </div>
+      <h2 className="exercises__title">Exercícios:</h2>
+      {session.exercises.length > 0 ? (
+        <ul className="exercises__list">
+          {session.exercises.map((exercise, index) => (
+            <li className="exercise" key={index}>
+              <div className="exercise__title" data-exercise-index={index}>
+                {exercise.name} - {exercise.reps} Reps
+              </div>
 
-            <label className="custom-checkbox">
-            <input 
-                checked={exercise.checked}
-                style={{ color: exercise.checked ? 'orange' : 'var(--branco)' }} 
-                onChange={() => endExercise(session.id, index)}
-                className='checkbox__exer'
-                type="checkbox"
-            />
-
-              <i className="fas fa-basketball-ball bball-check"></i>
-              <button className='remove__exer' onClick={() => deleteExercise(session.id, index)}><i className="fa-solid fa-trash-can"></i></button>
-              <button className='edit__exer'>
-                <i className="fa-solid fa-pen-to-square" ></i>
-              </button>
-            </label>
-          </li>
-        ))}
-        <button className='end-session' onClick={()=>{endSession(session.id, session.exercises)}}>Finalizar Sessão</button>
-      </ul>
-      ) : ''}
-      
-      <br />
-      
+              <label className="custom-checkbox">
+                <input
+                  checked={exercise.checked}
+                  style={{ color: exercise.checked ? "orange" : "var(--branco)" }}
+                  onChange={() => endExercise(session.id, index)}
+                  className="checkbox__exer"
+                  type="checkbox"
+                />
+                <i className="fas fa-basketball-ball bball-check"></i>
+                <button className="remove__exer" onClick={() => deleteExercise(session.id, index)}>
+                  <i className="fa-solid fa-trash-can"></i>
+                </button>
+                <button className="edit__exer">
+                  <i className="fa-solid fa-pen-to-square"></i>
+                </button>
+              </label>
+            </li>
+          ))}
+          <button className="end-session" onClick={endSession}>
+            Finalizar Sessão
+          </button>
+        </ul>
+      ) : (
+        ""
+      )}
     </div>
-  )
-
-  
+  );
 }
 
-
 export default SingleSession;
-

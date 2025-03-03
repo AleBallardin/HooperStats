@@ -15,5 +15,5 @@ export interface Session {
   id: string;
   name: string;
   exercises: Exercise[];
-  time: number;
+  duration: number;
 }

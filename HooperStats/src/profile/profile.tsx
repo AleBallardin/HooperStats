@@ -1,5 +1,6 @@
 import './profile.css'
 import TopMenu from '../components/topMenu';
+import { useEffect, useState } from 'react';
 
 function Profile() {
     return (

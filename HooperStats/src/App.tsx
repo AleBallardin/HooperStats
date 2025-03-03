@@ -6,6 +6,7 @@ import CreateGoal from './components/createGoal';
 import Goals from './components/goals';
 import { useEffect, useState } from 'react';
 import { Session, Goal } from './components/types';
+import { TimerProvider } from './singleSession/SScomps/timerContexts';
 
 function App() {
     const [sessions, setSessions] = useState<Session[]>(() => {
@@ -59,16 +60,18 @@ function App() {
 
     return (
         <>
-            <TopMenu />
-            <CreateSession addSession={addSession} />
-            <Sessions sessions={sessions} removeSessions={removeSessions} />
-            <CreateGoal addGoal={addGoal} />
-            <Goals goals={goals} removeGoal={removeGoal} toggleGoal={toggleGoal} />
-            {goals.length > 0 && (
-                <div className='limpar-concluidas'>
-                    <button onClick={removeCheckedGoals}>Limpar Concluídas</button>
-                </div>
-            )}
+            <TimerProvider>
+                <TopMenu />
+                <CreateSession addSession={addSession} />
+                <Sessions sessions={sessions} removeSessions={removeSessions} />
+                <CreateGoal addGoal={addGoal} />
+                <Goals goals={goals} removeGoal={removeGoal} toggleGoal={toggleGoal} />
+                {goals.length > 0 && (
+                    <div className='limpar-concluidas'>
+                        <button onClick={removeCheckedGoals}>Limpar Concluídas</button>
+                    </div>
+                )}
+            </TimerProvider>
         </>
     );
 }
