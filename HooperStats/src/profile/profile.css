@@ -64,6 +64,32 @@ body{
 /* 
 dashboard */
 
+.done_sessions_list{
+    color: var(--branco);
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    text-align: start;
+    padding: 1em;
+}
+
+.done_sessions_list h1{
+    font-size: 28px;
+    font-weight: 400;
+    
+}
+
+.done_session_exer{
+    padding-top: 0.5em;
+    padding-left: 0.3em;
+}
+
+.done_sessions_list ul{
+    padding-left: 1.2em;
+    list-style-type: disc;
+}
+
 .user_activity{
     margin: auto;
     display: flex;
@@ -72,5 +98,7 @@ dashboard */
     align-items: center;
     text-align: center;
 }
+
+
 
 
